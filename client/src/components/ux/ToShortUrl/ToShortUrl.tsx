@@ -28,7 +28,7 @@ const ToShortUrl: React.FC<IProps> = ({
             />
 
             {errors.url && <ErrorMessage>{errors.url.message}</ErrorMessage>}
-
+            
             <Button>
                 Перейти по ссылки 
             </Button>

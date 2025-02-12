@@ -1,10 +1,8 @@
 
 
 
-export function parseDate(time: Date | undefined) : string {
-    if (!time) return ""
 
-    return time instanceof Date
-    ? time.toLocaleString()
-    : 'Invalid Date';
-}
+
+export const parseDate = (dateString: string | undefined): Date | string => {
+    return dateString ? new Date(dateString) : "Invalid Date"
+}; 

@@ -1,22 +1,37 @@
 import { BaseService } from "./BaseService";
 import { apiConfig } from "../api";
-import { IRedirectToOriginUrl, IShortUrl, IShortUrlCreateForm } from "@/interface/shortUrl.interface";
+import { IRedirectToOriginUrl, IShortUrlCreateForm, IShortUrlResponse } from "@/interface/shortUrl.interface";
 import { clientAPI } from "../clientAPI";
 
 interface IShortUrlService {
-    infoShortUrl: (shortUrl: string) => Promise<IShortUrl | null>
+    infoShortUrl: (shortUrl: string) => Promise<IShortUrlResponse | null>
     redirectToOriginUrl: (shortUrl: string) => Promise<IRedirectToOriginUrl | null>
-    getAllShortUrl: () => Promise<IShortUrl[] | null>
-    getShortUrl: (shortUrl: string) => Promise<IShortUrl | null>
-    createShortUrl: (data: IShortUrlCreateForm) => Promise<IShortUrl | null>
+    getAllShortUrl: () => Promise<IShortUrlResponse[] | null>
+    getShortUrl: (shortUrl: string) => Promise<IShortUrlResponse | null>
+    createShortUrl: (data: IShortUrlCreateForm) => Promise<IShortUrlResponse | null>
     
 }
 
 class ShortUrlService extends BaseService implements IShortUrlService {
-    public async infoShortUrl(shortUrl: string) : Promise<IShortUrl | null> {
+    public async deleteShortUrl(shortUrl: string) : Promise<IShortUrlResponse | string> {
+        if (!shortUrl.length) return "not is empty this shortUrl"
+
+        try {
+            const response = await clientAPI.delete(`${this.getFullUrl()}/delete/${shortUrl}`)
+            console.log(response.data)
+            return response.data
+        } catch(e) {
+            console.warn("Err: not delete this short url")
+            return "Not find shortUrl for delete !"
+        }
+    }
+    
+    
+    public async infoShortUrl(shortUrl: string) : Promise<IShortUrlResponse | null> {
         if (!shortUrl.length) return null
         try {
             const response = await clientAPI.get(`${this.getFullUrl()}/info/${shortUrl}`) 
+            console.log(response.data)
             return response.data
         } catch(e) {
             console.warn("Err: no this short url;", e)
@@ -28,6 +43,7 @@ class ShortUrlService extends BaseService implements IShortUrlService {
         if ( !shortUrl.length ) return null
         try {
             const response = await clientAPI.get(`${this.getFullUrl()}/${shortUrl}`)
+            console.log(response.data)
             return response.data
         } catch(e) {
             console.warn("Err: no redirect;", e)
@@ -35,7 +51,7 @@ class ShortUrlService extends BaseService implements IShortUrlService {
         }
     }
 
-    public async getAllShortUrl() : Promise<IShortUrl[] | null> {
+    public async getAllShortUrl() : Promise<IShortUrlResponse[] | null> {
        
         try {
             const response = await clientAPI.get(`${this.getFullUrl()}/`)
@@ -46,7 +62,7 @@ class ShortUrlService extends BaseService implements IShortUrlService {
         } 
     }
 
-    public async getShortUrl(shortUrl: string) : Promise<IShortUrl | null> {
+    public async getShortUrl(shortUrl: string) : Promise<IShortUrlResponse | null> {
         if ( !shortUrl.length ) return null
         try {
             const response = await clientAPI.get(`${this.getFullUrl()}?shortUrl=${shortUrl}`)
@@ -59,7 +75,7 @@ class ShortUrlService extends BaseService implements IShortUrlService {
     }
 
 
-    public async createShortUrl(data: IShortUrlCreateForm) : Promise<IShortUrl | null> {
+    public async createShortUrl(data: IShortUrlCreateForm) : Promise<IShortUrlResponse | null> {
         try {
             const response = await clientAPI.post(this.getFullUrl(), data)
             return response.data

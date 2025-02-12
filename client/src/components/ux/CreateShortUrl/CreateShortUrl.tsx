@@ -3,7 +3,7 @@ import { IForm } from "./IForm.Interface";
 import Button from "@/components/ui/Button/Button";
 import FieldsInput from "@/components/ui/FieldInput";
 import Title from "@/components/ui/Title";
-import { IShortUrl } from "@/interface/shortUrl.interface";
+import { IShortUrlResponse } from "@/interface/shortUrl.interface";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 
 interface ICreateShortUrlProps {
@@ -11,7 +11,7 @@ interface ICreateShortUrlProps {
     handleSubmit: (onSubmit: (data: IForm) => void) => (e: React.FormEvent<HTMLFormElement>) => void;
     errors: FieldErrors<IForm>;  
     onSubmit: SubmitHandler<IForm>;
-    createdShortUrl: IShortUrl | null
+    createdShortUrl: IShortUrlResponse | null
 }
 
 const CreateShortUrl: React.FC<ICreateShortUrlProps> = ({

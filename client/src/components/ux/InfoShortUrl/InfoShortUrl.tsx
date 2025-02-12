@@ -2,11 +2,11 @@ import Button from "@/components/ui/Button/Button"
 import ErrorMessage from "@/components/ui/ErrorMessage"
 import FieldInput from "@/components/ui/FieldInput"
 import Title from "@/components/ui/Title"
-import { IShortUrl } from "@/interface/shortUrl.interface"
+import { IShortUrlResponse } from "@/interface/shortUrl.interface"
 import { parseDate } from "@/utils/parseData"
 
 interface IProps {
-    infoShortUrl: IShortUrl | undefined | null
+    infoShortUrl: IShortUrlResponse | undefined | null
     isLoading: boolean
     error: Error | null
     stateForm: { onSubmit: (e: React.FormEvent) => void,value: string, setValue: (prev: string) => void }
@@ -44,7 +44,7 @@ const InfoShortUrl: React.FC<IProps> = (
                 ?
                     <div>Loading...</div>
                 :
-                infoShortUrl 
+                infoShortUrl?.id
                 && 
                 <ul 
                 className="flex flex-col item-center gap-3 border border-blue-500 rounded-md p-3"
@@ -53,7 +53,8 @@ const InfoShortUrl: React.FC<IProps> = (
                     <li>Origin url: { infoShortUrl.originalUrl }</li>
                     <li>Short url: { infoShortUrl.shortUrl }</li>
                     <li>alias: { infoShortUrl.alias }</li>
-                    <li>expiresAt: { parseDate(infoShortUrl.expiresAt) }</li>
+                    <li>expiresAt: { parseDate(infoShortUrl.expiresAt?.toString()).toLocaleString() }</li>
+                    <li>count click: { infoShortUrl.clickCount }</li>
                 </ul>
             }
         </>

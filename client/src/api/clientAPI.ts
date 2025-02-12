@@ -10,6 +10,7 @@ interface IClientAPIConfig {
 interface IClientAPI {
     get: (endpoint: string, params?: Record<string, any>) => Promise<AxiosResponse> 
     post: (endpoint: string, params?: Record<string, any>) => Promise<AxiosResponse>
+    delete: (endpoint: string, params?: Record<string, any>) => Promise<AxiosResponse>
 }
 
 class ClientAPI implements IClientAPI {
@@ -30,6 +31,10 @@ class ClientAPI implements IClientAPI {
 
     async post(endpoint: string, data?: Record<string, any>): Promise<AxiosResponse> {
         return this.client.post(endpoint, data); 
+    }
+
+    async delete(endpoint: string, params?: Record<string, any>): Promise<AxiosResponse> {
+        return this.client.delete(endpoint, { params });
     }
 }
 

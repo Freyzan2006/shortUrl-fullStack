@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { IForm } from "./IForm.Interface";
 import { shortUrlService } from "@/api/services/ShortUrlService";
 import { useState } from "react";
-import { IShortUrl } from "@/interface/shortUrl.interface";
+import { IShortUrlResponse } from "@/interface/shortUrl.interface";
 import { useShortUrl } from "@/hooks/useShortUrl";
 
 
@@ -20,7 +20,7 @@ const CreateShortUrlContainer: React.FC = () => {
         formState: { errors },
     } = useForm<IForm>();
 
-    const [ createdShortUrl, setCreatedShortUrl ] = useState<IShortUrl | null>(null)
+    const [ createdShortUrl, setCreatedShortUrl ] = useState<IShortUrlResponse | null>(null)
     const { refetch } = useShortUrl()
 
     const onSubmit: SubmitHandler<IForm> = async (data) => {

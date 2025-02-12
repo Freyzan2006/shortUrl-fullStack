@@ -1,32 +1,35 @@
+
 services:
-  nestjs-app:
+
+  app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile  
+    container_name: nestjs-app
     ports:
-      - "8000:8000"
-    volumes:
-      - .:/usr/src/app
+      - "8000:8000"  
     environment:
-      - NODE_ENV=production
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USERNAME=nestjs
+      - DB_HOST=postgres 
+      - DB_PORT=5432      
+      - DB_USERNAME=username
       - DB_PASSWORD=password
-      - DB_DATABASE=nestjs
+      - DB_DATABASE=short_urls
     depends_on:
-      - postgres
+      - postgres  
+
 
   postgres:
     image: postgres:alpine
+    container_name: postgres-db
     environment:
-      POSTGRES_USER: nestjs
+      POSTGRES_USER: username
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: nestjs
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: short_urls
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data 
+    ports:
+      - "5432:5432"  
+
 
 volumes:
-  postgres_data:
+  postgres-data:

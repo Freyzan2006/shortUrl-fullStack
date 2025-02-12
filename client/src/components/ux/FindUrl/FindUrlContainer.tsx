@@ -1,12 +1,12 @@
 import { shortUrlService } from "@/api/services/ShortUrlService";
-import { IShortUrl } from "@/interface/shortUrl.interface";
+import { IShortUrlResponse } from "@/interface/shortUrl.interface";
 import { useState } from "react";
 import FindUrl from "./FindUrl";
 
 
 const FindUrlContainer: React.FC = () => {
     const [value, setValue] = useState<string>("");  
-    const [url, setUrl] = useState<IShortUrl | null>(null);  
+    const [url, setUrl] = useState<IShortUrlResponse | null>(null);  
     const [error, setError] = useState<string | null>(null);  
     const [isLoading, setIsLoading] = useState<boolean>(false);  
   

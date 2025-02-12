@@ -1,6 +1,6 @@
 
 import Button from "@/components/ui/Button/Button"
-import { IShortUrl } from "@/interface/shortUrl.interface"
+import { IShortUrlResponse } from "@/interface/shortUrl.interface"
 
 interface IProps {
     onSubmit: (e: React.FormEvent) => void
@@ -8,7 +8,7 @@ interface IProps {
     setValue: (prev: string) => void
     error: string | null
     isLoading: boolean
-    url: IShortUrl | null
+    url: IShortUrlResponse | null
 }
 
 const FindUrl: React.FC<IProps> = (props) => {

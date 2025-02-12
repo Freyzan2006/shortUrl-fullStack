@@ -22,7 +22,10 @@ const ToShortUrlContainer: React.FC = () => {
             console.error("Ошибка при создании короткой ссылки");
             return 
         }
-      
+        
+        if (window.confirm(`Хотете перейти по ссылке ${response.url} ?`))
+            window.location.href = response.url
+         
         console.log(response)
     };
 

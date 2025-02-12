@@ -1,11 +1,28 @@
 
 
-export interface IShortUrl {
+// export interface IShortUrl {
+//     id: number
+//     originalUrl: string;
+//     shortUrl: string;
+//     expiresAt?: Date;
+//     alias?: string;
+// }
+
+export interface IShortUrlRequest {
     id: number
     originalUrl: string;
     shortUrl: string;
-    expiresAt?: Date;
-    alias?: string;
+    expiresAt?: Date 
+    alias?: string
+}
+
+export interface IShortUrlResponse {
+    id: number
+    originalUrl: string;
+    shortUrl: string;
+    expiresAt: Date 
+    alias: string
+    clickCount: number
 }
 
 export interface IShortUrlCreateForm {
